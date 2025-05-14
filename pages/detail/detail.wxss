@@ -1,0 +1,14 @@
+.container { max-width: 600rpx; margin: 0 auto; padding: 48rpx 0 120rpx 0; }
+.food-img { width: 120rpx; height: 120rpx; border-radius: 24rpx; background: #e7e3e0; display: flex; align-items: center; justify-content: center; font-size: 64rpx; margin: 0 auto 24rpx auto; }
+.food-name { text-align: center; font-size: 40rpx; color: #6d6d6d; font-weight: bold; margin-bottom: 8rpx; }
+.food-en { text-align: center; color: #b0a99f; font-size: 28rpx; margin-bottom: 16rpx; }
+.section-title { color: #bfae9e; font-size: 32rpx; margin: 36rpx 0 16rpx 0; }
+.tracking-box { display: flex; gap: 36rpx; justify-content: center; margin-bottom: 12rpx; }
+.track-item { display: flex; flex-direction: column; align-items: center; }
+.track-label { font-size: 24rpx; color: #bfae9e; margin-top: 4rpx; }
+.like-box { display: flex; justify-content: center; gap: 24rpx; margin: 20rpx 0 32rpx 0; }
+.like-face { font-size: 48rpx; cursor: pointer; transition: transform 0.1s; }
+.remark-input { width: 90%; min-height: 80rpx; border-radius: 20rpx; border: 3rpx solid #e2d6ce; padding: 16rpx; font-size: 28rpx; background: #f6f5f3; margin: 0 auto; display: block; }
+.btn-group { display: flex; justify-content: space-between; margin: 48rpx 0 0 0; }
+.btn { background: #bfae9e; color: #fff; border: none; border-radius: 24rpx; padding: 16rpx 56rpx; font-size: 32rpx; }
+.btn.save { background: #8c8c8c; } 

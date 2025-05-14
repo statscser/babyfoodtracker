@@ -1,0 +1,16 @@
+.header { text-align: center; padding: 24rpx 0 8rpx 0; }
+.app-title { font-size: 36rpx; letter-spacing: 2rpx; color: #8c8c8c; font-weight: bold; margin-bottom: 8rpx; }
+.tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 20rpx; margin-bottom: 24rpx; }
+.tab { background: #f0edea; border-radius: 32rpx; padding: 12rpx 36rpx; color: #8c8c8c; font-size: 28rpx; margin-bottom: 8rpx; }
+.food-table { width: 98vw; max-width: 700rpx; margin: 0 auto; }
+.food-row { background: #fff; border-radius: 28rpx; box-shadow: 0 8rpx 32rpx #e2d6ce33; min-height: 80rpx; display: flex; align-items: center; margin-bottom: 10rpx; transition: box-shadow 0.2s; padding: 8rpx 0; }
+.food-row:active { box-shadow: 0 12rpx 48rpx #e2d6ce55; }
+.food-cell { flex: 1 1 0; padding: 0 6rpx; font-size: 28rpx; color: #6d6d6d; display: flex; align-items: center; justify-content: center; }
+.food-name { flex-direction: column; align-items: flex-start; justify-content: center; min-width: 0; max-width: 100%; font-weight: 500; padding-left: 16rpx; }
+.food-name text { display: block; white-space: nowrap; }
+.food-en { color: #b0a99f; font-size: 24rpx; margin-left: 0; margin-top: 2rpx; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.food-cat { font-size: 48rpx; justify-content: center; }
+.progress { display: flex; gap: 8rpx; justify-content: center; }
+.dot { width: 32rpx; height: 32rpx; border-radius: 50%; border: 4rpx solid #bfae9e; background: #f6f5f3; }
+.dot[style*='background:#bfae9e'] { background: #bfae9e; }
+.like-face { font-size: 48rpx; margin-left: 0; justify-content: center; } 

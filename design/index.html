@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>宝宝食物初体验</title>
+  <style>
+    body { background: #f6f5f3; font-family: 'PingFang SC', Arial, sans-serif; margin: 0; color: #444; }
+    .header { text-align: center; padding: 24px 0 8px 0; }
+    .app-title { font-size: 1.7rem; letter-spacing: 2px; color: #8c8c8c; font-weight: bold; margin-bottom: 8px; }
+    .tabs { display: flex; justify-content: center; gap: 10px; margin: 0 0 18px 0; flex-wrap: wrap; }
+    .tab { background: #f0edea; border-radius: 16px; padding: 6px 18px; color: #8c8c8c; cursor: pointer; font-size: 1rem; border: none; margin-bottom: 6px; }
+    .tab.active { background: #bfae9e; color: #fff; }
+    .food-table { width: 96%; max-width: 600px; margin: 0 auto; border-collapse: separate; border-spacing: 0 10px; }
+    .food-row { background: #fff; border-radius: 14px; box-shadow: 0 2px 8px #e2d6ce33; height: 48px; transition: box-shadow 0.2s; cursor: pointer; }
+    .food-row:hover { box-shadow: 0 4px 16px #e2d6ce55; }
+    .food-cell { padding: 0 10px; font-size: 1rem; color: #6d6d6d; vertical-align: middle; }
+    .food-name { font-weight: 500; min-width: 90px; }
+    .food-en { color: #b0a99f; font-size: 0.95rem; margin-left: 4px; }
+    .food-cat { font-size: 1.2rem; }
+    .progress { display: flex; gap: 4px; justify-content: center; }
+    .dot { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid #bfae9e; background: #f6f5f3; display: inline-block; }
+    .dot.checked { background: #bfae9e; }
+    .like-face { font-size: 1.3rem; margin-left: 2px; display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; background: #fff; border: 1.5px solid #e2d6ce; }
+    .like-1, .like-2, .like-3, .like-4, .like-5 { color: inherit; }
+    @media (max-width: 600px) {
+      .food-table { font-size: 0.95rem; }
+      .food-cell { padding: 0 4px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="app-title">宝宝食物初体验</div>
+  </div>
+  <div class="tabs">
+    <button class="tab active">🔎 全部</button>
+    <button class="tab">🥦 蔬菜</button>
+    <button class="tab">🍎 水果</button>
+    <button class="tab">🍖 肉类</button>
+    <button class="tab">🌾 谷物</button>
+    <button class="tab">🥚 蛋奶</button>
+    <button class="tab">🌿 香料</button>
+    <button class="tab">⚠️ 高敏</button>
+  </div>
+  <table class="food-table">
+    <tr class="food-row" onclick="location.href='food-detail.html'">
+      <td class="food-cell food-name">苹果 <span class="food-en">Apple</span></td>
+      <td class="food-cell food-cat">🍎</td>
+      <td class="food-cell">
+        <div class="progress">
+          <span class="dot checked"></span>
+          <span class="dot checked"></span>
+          <span class="dot"></span>
+        </div>
+      </td>
+      <td class="food-cell">
+        <span class="like-face like-5">😄</span>
+      </td>
+    </tr>
+    <tr class="food-row" onclick="location.href='food-detail.html'">
+      <td class="food-cell food-name">鸡蛋 <span class="food-en">Egg</span></td>
+      <td class="food-cell food-cat">🥚</td>
+      <td class="food-cell">
+        <div class="progress">
+          <span class="dot checked"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </td>
+      <td class="food-cell">
+        <span class="like-face like-3">😐</span>
+      </td>
+    </tr>
+    <!-- 更多食物行... -->
+  </table>
+</body>
+</html> 

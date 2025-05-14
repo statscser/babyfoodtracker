@@ -1,0 +1,25 @@
+<view class="header">
+  <text class="app-title">宝宝食物初体验</text>
+</view>
+<view class="tabs">
+  <view class="tab" wx:for="{{categories}}" wx:key="name" bindtap="onTabChange" data-index="{{index}}" style="{{currentTab==index?'background:#bfae9e;color:#fff;':''}}">
+    <text>{{item.emoji}} {{item.name}}</text>
+  </view>
+</view>
+<view class="food-table">
+  <view class="food-row" wx:for="{{foodList}}" wx:key="name" bindtap="onFoodTap" data-index="{{index}}">
+    <view class="food-cell food-name">
+      <text>{{item.name}}</text>
+      <text class="food-en">{{item.en}}</text>
+    </view>
+    <view class="food-cell food-cat">{{item.emoji}}</view>
+    <view class="food-cell">
+      <view class="progress">
+        <view class="dot" wx:for="{{[0,1,2]}}" wx:key="dot" style="{{item.progress>index?'background:#bfae9e;':''}}"></view>
+      </view>
+    </view>
+    <view class="food-cell">
+      <text class="like-face">{{item.like}}</text>
+    </view>
+  </view>
+</view> 

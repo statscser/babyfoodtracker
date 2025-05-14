@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>食物详情</title>
+  <style>
+    body { background: #f6f5f3; font-family: 'PingFang SC', Arial, sans-serif; margin: 0; }
+    .container { max-width: 400px; margin: 0 auto; padding: 24px 0 60px 0; }
+    .back-btn { position: fixed; left: 12px; top: 16px; background: #e2d6ce; border: none; border-radius: 50%; width: 36px; height: 36px; font-size: 1.2rem; color: #8c8c8c; cursor: pointer; }
+    .food-img { width: 90px; height: 90px; border-radius: 18px; background: #e7e3e0; display: block; margin: 0 auto 12px auto; }
+    .food-name { text-align: center; font-size: 1.5rem; color: #6d6d6d; font-weight: bold; margin-bottom: 6px; }
+    .food-tags { text-align: center; margin-bottom: 10px; }
+    .tag { font-size: 0.9rem; background: #e7e3e0; color: #bfae9e; border-radius: 8px; padding: 2px 8px; margin: 0 2px; }
+    .section-title { color: #bfae9e; font-size: 1.1rem; margin: 18px 0 8px 0; }
+    .tracking-box { display: flex; gap: 18px; justify-content: center; margin-bottom: 8px; }
+    .track-item { display: flex; flex-direction: column; align-items: center; }
+    .track-label { font-size: 0.9rem; color: #bfae9e; margin-top: 2px; }
+    .track-date { font-size: 0.8rem; color: #b0a99f; margin-top: 2px; }
+    .like-box { display: flex; justify-content: center; gap: 10px; margin: 10px 0 16px 0; }
+    .like-face { font-size: 2rem; cursor: pointer; transition: transform 0.1s; }
+    .like-face.selected { transform: scale(1.2); }
+    .remark-box { width: 90%; margin: 0 auto; }
+    .remark-input { width: 100%; min-height: 48px; border-radius: 10px; border: 1px solid #e2d6ce; padding: 8px; font-size: 1rem; background: #f6f5f3; }
+    .btn-group { display: flex; justify-content: space-between; margin: 24px 0 0 0; }
+    .btn { background: #bfae9e; color: #fff; border: none; border-radius: 12px; padding: 8px 28px; font-size: 1rem; cursor: pointer; }
+    .btn.save { background: #8c8c8c; }
+  </style>
+</head>
+<body>
+  <button class="back-btn" onclick="location.href='food-list.html'">←</button>
+  <div class="container">
+    <div class="food-img"></div>
+    <div class="food-name">苹果</div>
+    <div class="food-tags"><span class="tag">水果</span><span class="tag">高维C</span></div>
+    <div class="section-title">排敏追踪</div>
+    <div class="tracking-box">
+      <div class="track-item">
+        <input type="checkbox" id="try1">
+        <label for="try1" class="track-label">第1次</label>
+        <div class="track-date">--/--</div>
+      </div>
+      <div class="track-item">
+        <input type="checkbox" id="try2">
+        <label for="try2" class="track-label">第2次</label>
+        <div class="track-date">--/--</div>
+      </div>
+      <div class="track-item">
+        <input type="checkbox" id="try3">
+        <label for="try3" class="track-label">第3次</label>
+        <div class="track-date">--/--</div>
+      </div>
+    </div>
+    <div class="section-title">宝宝喜好</div>
+    <div class="like-box">
+      <span class="like-face">😭</span>
+      <span class="like-face">😕</span>
+      <span class="like-face">😐</span>
+      <span class="like-face">🙂</span>
+      <span class="like-face">😊</span>
+    </div>
+    <div class="section-title">备注</div>
+    <div class="remark-box">
+      <textarea class="remark-input" placeholder="可记录宝宝对该食物的反应或其他备注..."></textarea>
+    </div>
+    <div class="btn-group">
+      <button class="btn" onclick="location.href='index.html'">返回</button>
+      <button class="btn save" onclick="location.href='index.html'">保存</button>
+    </div>
+  </div>
+</body>
+</html> 

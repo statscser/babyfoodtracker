@@ -11,31 +11,50 @@ Page({
       { name: '豆类', emoji: '🫘' },
     ],
     currentTab: 0,
-    foodList: [
-      { name: '苹果', en: 'Apple', emoji: '🍎', category: '水果', progress: 2, like: '😄' },
-      { name: '鸡蛋', en: 'Egg', emoji: '🥚', category: '蛋奶', progress: 1, like: '😐' },
-      // ...更多食物
-    ],
-    allFoodList: []
+    foodList: [],
+    filteredFoodList: []
   },
   onLoad() {
     const app = getApp();
-    const allFood = app.globalData.foodList || [];
-    this.setData({ allFoodList: allFood, foodList: allFood });
+    const foodList = app.globalData.foodList || [];
+    this.setData({ 
+      foodList,
+      filteredFoodList: foodList
+    });
+  },
+  onShow() {
+    // 每次显示页面时重新获取数据，确保数据同步
+    const app = getApp();
+    const foodList = app.globalData.foodList || [];
+    let filtered = foodList;
+    if (this.data.currentTab > 0) {
+      const category = this.data.categories[this.data.currentTab].name;
+      filtered = foodList.filter(f => f.category === category);
+    }
+    this.setData({ 
+      foodList,
+      filteredFoodList: filtered
+    });
   },
   onTabChange(e) {
     const idx = e.currentTarget.dataset.index;
-    let filtered = this.data.allFoodList;
+    let filtered = this.data.foodList;
     if (idx > 0) {
-      const cat = this.data.categories[idx].name;
-      filtered = this.data.allFoodList.filter(f => f.category === cat);
+      const category = this.data.categories[idx].name;
+      filtered = this.data.foodList.filter(f => f.category === category);
     }
-    this.setData({ currentTab: idx, foodList: filtered });
+    this.setData({ 
+      currentTab: idx, 
+      filteredFoodList: filtered 
+    });
   },
   onFoodTap(e) {
-    const idx = e.currentTarget.dataset.index;
+    const index = e.currentTarget.dataset.index;
+    const realIndex = this.data.foodList.findIndex(food => 
+      food.name === this.data.filteredFoodList[index].name
+    );
     wx.navigateTo({
-      url: '/pages/detail/detail?index=' + idx
+      url: `/pages/detail/detail?index=${realIndex}`
     });
   }
 }); 

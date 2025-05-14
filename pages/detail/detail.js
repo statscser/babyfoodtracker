@@ -75,7 +75,24 @@ Page({
     wx.navigateBack({ delta: 1 });
   },
   onSave() {
-    // 实际应保存到全局或storage
+    const app = getApp();
+    const idx = this.data.food.idx;
+    const food = this.data.food;
+    
+    // 计算进度
+    const checkedCount = food.progressList.filter(p => p.checked).length;
+    
+    // 更新全局数据
+    if (app.globalData && app.globalData.foodList) {
+      app.globalData.foodList[idx] = {
+        ...app.globalData.foodList[idx],
+        progressList: food.progressList,
+        progress: checkedCount,
+        like: food.like,
+        remark: food.remark
+      };
+    }
+    
     wx.reLaunch({ url: '/pages/index/index' });
   }
 }); 

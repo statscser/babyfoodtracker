@@ -4,19 +4,22 @@
   <view class="food-en">{{food.en}}</view>
   <view class="section-title">排敏追踪</view>
   <view class="tracking-box">
-    <label wx:for="[0,1,2]" wx:key="i" class="track-item">
-      <checkbox checked="{{food.progress>index}}" />
+    <view wx:for="{{[0,1,2]}}" wx:key="i" class="track-item">
+      <checkbox checked="{{food.progressList[index].checked}}" bindchange="onTrackCheck" data-index="{{index}}" />
       <text class="track-label">第{{index+1}}次</text>
-    </label>
+      <text class="track-date" bindtap="onDateTap" data-index="{{index}}">{{food.progressList[index].date || '--/--'}}</text>
+    </view>
   </view>
   <view class="section-title">宝宝喜好</view>
   <view class="like-box">
-    <text class="like-face" wx:for="{{likeList}}" wx:key="face" bindtap="onLikeSelect" data-like="{{item}}" style="{{food.like==item?'transform:scale(1.2);':''}}">{{item}}</text>
+    <text class="like-face {{food.like==item?'selected':''}}" wx:for="{{likeList}}" wx:key="face" bindtap="onLikeSelect" data-like="{{item}}">{{item}}</text>
   </view>
   <view class="section-title">备注</view>
   <textarea class="remark-input" placeholder="可记录宝宝对该食物的反应或其他备注..." value="{{food.remark}}" bindinput="onRemarkInput"></textarea>
   <view class="btn-group">
     <button class="btn" bindtap="onBack">返回</button>
+    <view style="width:32rpx;display:inline-block;"></view>
     <button class="btn save" bindtap="onSave">保存</button>
   </view>
+  <picker mode="date" value="{{pickerDate}}" bindchange="onDateChange" style="display:none" id="datePicker"></picker>
 </view> 

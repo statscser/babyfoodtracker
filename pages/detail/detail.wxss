@@ -7,8 +7,10 @@
 .track-item { display: flex; flex-direction: column; align-items: center; }
 .track-label { font-size: 24rpx; color: #bfae9e; margin-top: 4rpx; }
 .like-box { display: flex; justify-content: center; gap: 24rpx; margin: 20rpx 0 32rpx 0; }
-.like-face { font-size: 48rpx; cursor: pointer; transition: transform 0.1s; }
+.like-face { font-size: 48rpx; cursor: pointer; transition: transform 0.15s, color 0.15s; }
+.like-face.selected { transform: scale(1.35); color: #4ecb8f; text-shadow: 0 2rpx 8rpx #bfae9e44; }
+.track-date { font-size: 22rpx; color: #b0a99f; margin-top: 2rpx; text-decoration: underline; cursor: pointer; }
 .remark-input { width: 90%; min-height: 80rpx; border-radius: 20rpx; border: 3rpx solid #e2d6ce; padding: 16rpx; font-size: 28rpx; background: #f6f5f3; margin: 0 auto; display: block; }
-.btn-group { display: flex; justify-content: space-between; margin: 48rpx 0 0 0; }
+.btn-group { display: flex; justify-content: center; gap: 32rpx; margin: 48rpx 0 0 0; }
 .btn { background: #bfae9e; color: #fff; border: none; border-radius: 24rpx; padding: 16rpx 56rpx; font-size: 32rpx; }
 .btn.save { background: #8c8c8c; } 

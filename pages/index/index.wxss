@@ -19,6 +19,21 @@
   border: 4rpx dashed #bfae9e; 
   background: #f6f5f3; 
 }
+.dot.status-allergy {
+  border-style: solid;
+  border-color: #ff6b6b;
+  background: #ff6b6b;
+}
+.dot.status-observe {
+  border-style: solid;
+  border-color: #ffd93d;
+  background: #ffd93d;
+}
+.dot.status-pass {
+  border-style: solid;
+  border-color: #4ecb8f;
+  background: #4ecb8f;
+}
 .dot.checked { 
   border-style: solid;
   background: #4ecb8f; 

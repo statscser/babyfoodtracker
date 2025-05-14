@@ -33,4 +33,65 @@
 .remark-input { width: 90%; min-height: 80rpx; border-radius: 20rpx; border: 3rpx solid #e2d6ce; padding: 16rpx; font-size: 28rpx; background: #f6f5f3; margin: 0 auto; display: block; }
 .btn-group { display: flex; justify-content: center; gap: 32rpx; margin: 48rpx 0 0 0; }
 .btn { background: #bfae9e; color: #fff; border: none; border-radius: 24rpx; padding: 16rpx 56rpx; font-size: 32rpx; }
-.btn.save { background: #8c8c8c; } 
+.btn.save { background: #8c8c8c; }
+.track-circle {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 50%;
+  border: 4rpx dashed #bfae9e;
+  background: #f6f5f3;
+  position: relative;
+}
+.track-circle.status-allergy {
+  border-style: solid;
+  border-color: #ff6b6b;
+  background: #ff6b6b;
+}
+.track-circle.status-observe {
+  border-style: solid;
+  border-color: #ffd93d;
+  background: #ffd93d;
+}
+.track-circle.status-pass {
+  border-style: solid;
+  border-color: #4ecb8f;
+  background: #4ecb8f;
+}
+.status-options {
+  position: absolute;
+  top: -88rpx;  /* 由于改为横向，可以减少上方距离 */
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 16rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: row;  /* 改为横向排列 */
+  gap: 12rpx;
+  z-index: 100;
+}
+.status-option {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.status-option.red {
+  background: #ff6b6b;
+}
+.status-option.yellow {
+  background: #ffd93d;
+}
+.status-option.green {
+  background: #4ecb8f;
+}
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.1);
+  z-index: 50;
+} 

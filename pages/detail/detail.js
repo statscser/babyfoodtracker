@@ -2,67 +2,65 @@ Page({
   data: {
     food: {
       name: '', en: '', emoji: '', progressList: [
-        { checked: false, date: '' },
-        { checked: false, date: '' },
-        { checked: false, date: '' }
+        { status: '', date: '' },
+        { status: '', date: '' },
+        { status: '', date: '' }
       ], like: '😄', remark: ''
     },
     likeList: ['😭','😟','😐','🙂','😄'],
-    pickerDate: '',
-    pickerIndex: null
+    currentTrackIndex: null
   },
   onLoad(options) {
-    // 简单模拟：从全局或本地获取数据，实际可用全局变量或storage
     const idx = options.index || 0;
     const app = getApp();
-    let foodList = app.globalData && app.globalData.foodList ? app.globalData.foodList : [
-      { name: '苹果', en: 'Apple', emoji: '🍎', progress: 2, like: '😄', remark: '' },
-      { name: '鸡蛋', en: 'Egg', emoji: '🥚', progress: 1, like: '😐', remark: '' }
-    ];
+    let foodList = app.globalData && app.globalData.foodList ? app.globalData.foodList : [];
     let food = foodList[idx] || {};
+    
     // 兼容老数据
     if (!food.progressList) {
-      let arr = [false, false, false].map((_, i) => ({ checked: food.progress > i, date: '' }));
+      let arr = [false, false, false].map((_, i) => ({ status: '', date: '' }));
       food.progressList = arr;
     }
     this.setData({ food: { ...food, idx: Number(idx) } });
   },
-  onTrackCheck(e) {
+  onTrackTap(e) {
     const idx = e.currentTarget.dataset.index;
+    // 如果点击的是当前打开的选项，则关闭它
+    if (this.data.currentTrackIndex === idx) {
+      this.setData({ currentTrackIndex: null });
+    } else {
+      this.setData({ currentTrackIndex: idx });
+    }
+  },
+  onStatusSelect(e) {
+    const { status, index } = e.currentTarget.dataset;
     let progressList = this.data.food.progressList.slice();
-    // checkbox的e.detail.value是一个数组，当选中时数组长度为1，未选中时为0
-    const checked = e.detail.value.length > 0;
-    progressList[idx].checked = checked;
     
-    if (checked) {
-      // 选中时设置当前日期
+    // 如果是第一次选择状态，自动添加当前日期
+    if (!progressList[index].date) {
       const now = new Date();
       const dateStr = `${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2,'0')}-${now.getDate().toString().padStart(2,'0')}`;
-      progressList[idx].date = dateStr;
-    } else {
-      // 取消选中时清除日期
-      progressList[idx].date = '';
+      progressList[index].date = dateStr;
     }
     
+    progressList[index].status = status;
     this.setData({
-      'food.progressList': progressList
-    }, () => {
-      // 打印检查数据更新
-      console.log('更新后的数据:', this.data.food.progressList[idx]);
+      'food.progressList': progressList,
+      currentTrackIndex: null
     });
   },
-  onDateTap(e) {
-    const idx = e.currentTarget.dataset.index;
-    this.setData({ pickerIndex: idx, pickerDate: this.data.food.progressList[idx].date || '' });
-    // 显示日期选择器
-    this.selectComponent('#datePicker').show();
+  onMaskTap() {
+    this.setData({ currentTrackIndex: null });
+  },
+  catchTap() {
+    // 阻止事件冒泡，防止点击选项时触发遮罩的点击事件
+    return;
   },
   onDateChange(e) {
     const idx = e.currentTarget.dataset.index;
     const date = e.detail.value;
     let progressList = this.data.food.progressList.slice();
     progressList[idx].date = date;
-    progressList[idx].checked = true;
     this.setData({ 'food.progressList': progressList });
   },
   onLikeSelect(e) {
@@ -79,15 +77,15 @@ Page({
     const idx = this.data.food.idx;
     const food = this.data.food;
     
-    // 计算进度
-    const checkedCount = food.progressList.filter(p => p.checked).length;
+    // 计算进度（有状态且有日期的次数）
+    const progress = food.progressList.filter(p => p.status && p.date).length;
     
     // 更新全局数据
     if (app.globalData && app.globalData.foodList) {
       app.globalData.foodList[idx] = {
         ...app.globalData.foodList[idx],
         progressList: food.progressList,
-        progress: checkedCount,
+        progress,
         like: food.like,
         remark: food.remark
       };

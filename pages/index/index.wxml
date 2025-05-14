@@ -15,9 +15,9 @@
       </view>
       <view class="food-cell food-cat">{{item.emoji}}</view>
       <view class="food-cell progress">
-        <view class="dot {{item.progressList[0].checked ? 'checked' : ''}}" />
-        <view class="dot {{item.progressList[1].checked ? 'checked' : ''}}" />
-        <view class="dot {{item.progressList[2].checked ? 'checked' : ''}}" />
+        <view class="dot {{item.progressList[0].status ? 'status-'+item.progressList[0].status : ''}}" />
+        <view class="dot {{item.progressList[1].status ? 'status-'+item.progressList[1].status : ''}}" />
+        <view class="dot {{item.progressList[2].status ? 'status-'+item.progressList[2].status : ''}}" />
       </view>
       <view class="food-cell">
         <view class="like-face {{item.like ? '' : 'empty'}}">{{item.like || '😶'}}</view>

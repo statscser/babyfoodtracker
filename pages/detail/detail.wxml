@@ -1,13 +1,18 @@
 <view class="container">
+  <view class="mask" wx:if="{{currentTrackIndex !== null}}" bindtap="onMaskTap"></view>
   <view class="food-img">{{food.emoji}}</view>
   <view class="food-name">{{food.name}}</view>
   <view class="food-en">{{food.en}}</view>
   <view class="section-title">排敏追踪</view>
   <view class="tracking-box">
     <view wx:for="{{[0,1,2]}}" wx:key="i" class="track-item">
-      <checkbox-group bindchange="onTrackCheck" data-index="{{index}}">
-        <checkbox checked="{{food.progressList[index].checked}}" value="{{index}}" />
-      </checkbox-group>
+      <view class="track-circle {{food.progressList[index].status ? 'status-'+food.progressList[index].status : ''}}" bindtap="onTrackTap" data-index="{{index}}">
+        <view class="status-options" wx:if="{{currentTrackIndex === index}}" catchtap="catchTap">
+          <view class="status-option red" bindtap="onStatusSelect" data-status="allergy" data-index="{{index}}"></view>
+          <view class="status-option yellow" bindtap="onStatusSelect" data-status="observe" data-index="{{index}}"></view>
+          <view class="status-option green" bindtap="onStatusSelect" data-status="pass" data-index="{{index}}"></view>
+        </view>
+      </view>
       <text class="track-label">第{{index+1}}次</text>
       <picker mode="date" value="{{food.progressList[index].date}}" bindchange="onDateChange" data-index="{{index}}">
         <text class="track-date">{{food.progressList[index].date || '--/--'}}</text>
@@ -21,7 +26,7 @@
   <view class="section-title">备注</view>
   <textarea class="remark-input" placeholder="可记录宝宝对该食物的反应或其他备注..." value="{{food.remark}}" bindinput="onRemarkInput"></textarea>
   <view class="btn-group">
-    <button class="btn" bindtap="onBack">返回</button>
+    <button class="btn" bindtap="onBack">取消</button>
     <view style="width:32rpx;display:inline-block;"></view>
     <button class="btn save" bindtap="onSave">保存</button>
   </view>

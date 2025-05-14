@@ -15,7 +15,7 @@
       </view>
       <text class="track-label">第{{index+1}}次</text>
       <picker mode="date" value="{{food.progressList[index].date}}" bindchange="onDateChange" data-index="{{index}}">
-        <text class="track-date">{{food.progressList[index].date || '--/--'}}</text>
+        <text class="track-date">{{food.progressList[index].date || '----/--/--'}}</text>
       </picker>
     </view>
   </view>

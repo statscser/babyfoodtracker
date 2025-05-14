@@ -39,7 +39,7 @@ Page({
     // 如果是第一次选择状态，自动添加当前日期
     if (!progressList[index].date) {
       const now = new Date();
-      const dateStr = `${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2,'0')}-${now.getDate().toString().padStart(2,'0')}`;
+      const dateStr = `${now.getFullYear()}/${(now.getMonth()+1).toString().padStart(2,'0')}/${now.getDate().toString().padStart(2,'0')}`;
       progressList[index].date = dateStr;
     }
     

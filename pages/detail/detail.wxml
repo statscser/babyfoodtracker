@@ -7,7 +7,9 @@
     <view wx:for="{{[0,1,2]}}" wx:key="i" class="track-item">
       <checkbox checked="{{food.progressList[index].checked}}" bindchange="onTrackCheck" data-index="{{index}}" />
       <text class="track-label">第{{index+1}}次</text>
-      <text class="track-date" bindtap="onDateTap" data-index="{{index}}">{{food.progressList[index].date || '--/--'}}</text>
+      <picker mode="date" value="{{food.progressList[index].date}}" bindchange="onDateChange" data-index="{{index}}">
+        <text class="track-date">{{food.progressList[index].date || '--/--'}}</text>
+      </picker>
     </view>
   </view>
   <view class="section-title">宝宝喜好</view>
@@ -21,5 +23,4 @@
     <view style="width:32rpx;display:inline-block;"></view>
     <button class="btn save" bindtap="onSave">保存</button>
   </view>
-  <picker mode="date" value="{{pickerDate}}" bindchange="onDateChange" style="display:none" id="datePicker"></picker>
 </view> 

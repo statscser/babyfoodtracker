@@ -3,13 +3,33 @@
 .food-name { text-align: center; font-size: 40rpx; color: #6d6d6d; font-weight: bold; margin-bottom: 8rpx; }
 .food-en { text-align: center; color: #b0a99f; font-size: 28rpx; margin-bottom: 16rpx; }
 .section-title { color: #bfae9e; font-size: 32rpx; margin: 36rpx 0 16rpx 0; }
-.tracking-box { display: flex; gap: 36rpx; justify-content: center; margin-bottom: 12rpx; }
-.track-item { display: flex; flex-direction: column; align-items: center; }
-.track-label { font-size: 24rpx; color: #bfae9e; margin-top: 4rpx; }
+.tracking-box { 
+  display: flex; 
+  justify-content: space-between; 
+  padding: 0 40rpx;
+  margin-bottom: 12rpx; 
+}
+.track-item { 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center;
+  width: 160rpx;  /* 固定宽度 */
+}
+.track-label { 
+  font-size: 24rpx; 
+  color: #bfae9e; 
+  margin: 4rpx 0; 
+}
+.track-date { 
+  font-size: 22rpx; 
+  color: #b0a99f; 
+  min-height: 30rpx;  /* 固定最小高度，即使没有日期也保持间距 */
+  line-height: 30rpx;
+  text-decoration: underline; 
+}
 .like-box { display: flex; justify-content: center; gap: 24rpx; margin: 20rpx 0 32rpx 0; }
 .like-face { font-size: 48rpx; cursor: pointer; transition: transform 0.15s, color 0.15s; }
 .like-face.selected { transform: scale(1.35); color: #4ecb8f; text-shadow: 0 2rpx 8rpx #bfae9e44; }
-.track-date { font-size: 22rpx; color: #b0a99f; margin-top: 2rpx; text-decoration: underline; cursor: pointer; }
 .remark-input { width: 90%; min-height: 80rpx; border-radius: 20rpx; border: 3rpx solid #e2d6ce; padding: 16rpx; font-size: 28rpx; background: #f6f5f3; margin: 0 auto; display: block; }
 .btn-group { display: flex; justify-content: center; gap: 32rpx; margin: 48rpx 0 0 0; }
 .btn { background: #bfae9e; color: #fff; border: none; border-radius: 24rpx; padding: 16rpx 56rpx; font-size: 32rpx; }

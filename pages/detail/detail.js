@@ -30,7 +30,7 @@ Page({
   onTrackCheck(e) {
     const idx = e.currentTarget.dataset.index;
     let progressList = this.data.food.progressList.slice();
-    const checked = e.detail.value.length > 0 || !progressList[idx].checked;
+    const checked = e.detail.value;  // 直接使用checkbox的值
     progressList[idx].checked = checked;
     if (checked) {
       const now = new Date();
@@ -44,13 +44,12 @@ Page({
   onDateTap(e) {
     const idx = e.currentTarget.dataset.index;
     this.setData({ pickerIndex: idx, pickerDate: this.data.food.progressList[idx].date || '' });
-    wx.createSelectorQuery().select('#datePicker').node(res => {
-      // 触发picker弹窗
-    });
+    // 显示日期选择器
+    this.selectComponent('#datePicker').show();
   },
   onDateChange(e) {
+    const idx = e.currentTarget.dataset.index;
     const date = e.detail.value;
-    const idx = this.data.pickerIndex;
     let progressList = this.data.food.progressList.slice();
     progressList[idx].date = date;
     progressList[idx].checked = true;

@@ -30,16 +30,26 @@ Page({
   onTrackCheck(e) {
     const idx = e.currentTarget.dataset.index;
     let progressList = this.data.food.progressList.slice();
-    const checked = e.detail.value;  // 直接使用checkbox的值
+    // checkbox的e.detail.value是一个数组，当选中时数组长度为1，未选中时为0
+    const checked = e.detail.value.length > 0;
     progressList[idx].checked = checked;
+    
     if (checked) {
+      // 选中时设置当前日期
       const now = new Date();
       const dateStr = `${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2,'0')}-${now.getDate().toString().padStart(2,'0')}`;
       progressList[idx].date = dateStr;
     } else {
+      // 取消选中时清除日期
       progressList[idx].date = '';
     }
-    this.setData({ 'food.progressList': progressList });
+    
+    this.setData({
+      'food.progressList': progressList
+    }, () => {
+      // 打印检查数据更新
+      console.log('更新后的数据:', this.data.food.progressList[idx]);
+    });
   },
   onDateTap(e) {
     const idx = e.currentTarget.dataset.index;

@@ -38,6 +38,22 @@ Page({
   },
   onTrackTap(e) {
     const idx = e.currentTarget.dataset.index;
+    const progressList = this.data.food.progressList;
+
+    // 检查是否可以编辑当前记录
+    if (idx > 0) {
+      // 检查前一条记录是否已填写
+      const prevRecord = progressList[idx - 1];
+      if (!prevRecord.status || !prevRecord.date) {
+        wx.showToast({
+          title: '请先完成前一次记录',
+          icon: 'none',
+          duration: 2000
+        });
+        return;
+      }
+    }
+
     // 如果点击的是当前打开的选项，则关闭它
     if (this.data.currentTrackIndex === idx) {
       this.setData({ currentTrackIndex: null });
@@ -49,10 +65,40 @@ Page({
     const { status, index } = e.currentTarget.dataset;
     let progressList = this.data.food.progressList.slice();
     
+    // 检查是否可以编辑当前记录
+    if (index > 0) {
+      // 检查前一条记录是否已填写
+      const prevRecord = progressList[index - 1];
+      if (!prevRecord.status || !prevRecord.date) {
+        wx.showToast({
+          title: '请先完成前一次记录',
+          icon: 'none',
+          duration: 2000
+        });
+        return;
+      }
+    }
+    
     // 如果是第一次选择状态，自动添加当前日期
     if (!progressList[index].date) {
       const now = new Date();
-      const dateStr = `${now.getFullYear()}/${(now.getMonth()+1).toString().padStart(2,'0')}/${now.getDate().toString().padStart(2,'0')}`;
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      
+      // 检查是否与前一次记录同一天
+      if (index > 0) {
+        const prevDate = new Date(progressList[index - 1].date);
+        prevDate.setHours(0, 0, 0, 0);
+        if (today.getTime() === prevDate.getTime()) {
+          wx.showToast({
+            title: '不能与之前记录同一天',
+            icon: 'none',
+            duration: 2000
+          });
+          return;
+        }
+      }
+      
+      const dateStr = `${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2,'0')}-${now.getDate().toString().padStart(2,'0')}`;
       progressList[index].date = dateStr;
     }
     
@@ -72,7 +118,67 @@ Page({
   onDateChange(e) {
     const idx = e.currentTarget.dataset.index;
     const date = e.detail.value;
+    
+    // 检查是否是未来日期
+    const selectedDate = new Date(date);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // 设置为当天的开始时间
+    
+    if (selectedDate > today) {
+      wx.showToast({
+        title: '不能选择未来日期',
+        icon: 'none',
+        duration: 2000
+      });
+      return;
+    }
+
     let progressList = this.data.food.progressList.slice();
+    
+    // 检查与之前记录的时间关系
+    if (idx > 0) {
+      const prevDate = new Date(progressList[idx - 1].date);
+      prevDate.setHours(0, 0, 0, 0);
+      if (selectedDate.getTime() === prevDate.getTime()) {
+        wx.showToast({
+          title: '不能与之前记录同一天',
+          icon: 'none',
+          duration: 2000
+        });
+        return;
+      }
+      if (selectedDate < prevDate) {
+        wx.showToast({
+          title: '必须晚于前一次记录时间',
+          icon: 'none',
+          duration: 2000
+        });
+        return;
+      }
+    }
+    
+    // 检查与之后记录的时间关系
+    if (idx < progressList.length - 1 && progressList[idx + 1].date) {
+      const nextDate = new Date(progressList[idx + 1].date);
+      nextDate.setHours(0, 0, 0, 0);
+      if (selectedDate.getTime() === nextDate.getTime()) {
+        wx.showToast({
+          title: '不能与之后记录同一天',
+          icon: 'none',
+          duration: 2000
+        });
+        return;
+      }
+      if (selectedDate > nextDate) {
+        wx.showToast({
+          title: '必须早于后一次记录时间',
+          icon: 'none',
+          duration: 2000
+        });
+        return;
+      }
+    }
+    
     progressList[idx].date = date;
     this.setData({ 'food.progressList': progressList });
   },

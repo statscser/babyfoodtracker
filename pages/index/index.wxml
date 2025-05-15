@@ -21,6 +21,16 @@
       </view>
     </view>
   </view>
+  <view class="filter-tags" wx:if="{{filterOptions.progress !== 'all' || filterOptions.like !== 'all'}}">
+    <view class="filter-tag" wx:if="{{filterOptions.progress !== 'all'}}">
+      <text>排敏进度: {{progressTextMap[filterOptions.progress]}}</text>
+      <text class="tag-close" bindtap="clearFilter" data-type="progress">✕</text>
+    </view>
+    <view class="filter-tag" wx:if="{{filterOptions.like !== 'all'}}">
+      <text>喜好程度: {{likeTextMap[filterOptions.like]}}</text>
+      <text class="tag-close" bindtap="clearFilter" data-type="like">✕</text>
+    </view>
+  </view>
   <view class="food-table">
     <view class="food-row" wx:for="{{filteredFoodList}}" wx:key="name" bindtap="onFoodTap" data-index="{{index}}">
       <view class="food-cell food-name">

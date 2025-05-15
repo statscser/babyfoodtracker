@@ -212,4 +212,35 @@
 .footer-btn.confirm {
   background: #bfae9e;
   color: #fff;
+}
+
+.filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  padding: 16rpx 24rpx;
+  margin: 0 auto;
+  width: 98vw;
+  max-width: 700rpx;
+}
+
+.filter-tag {
+  display: flex;
+  align-items: center;
+  background: #f0edea;
+  border-radius: 32rpx;
+  padding: 8rpx 20rpx;
+  font-size: 24rpx;
+  color: #8c8c8c;
+}
+
+.tag-close {
+  margin-left: 8rpx;
+  font-size: 20rpx;
+  color: #bfae9e;
+  padding: 4rpx;
+}
+
+.tag-close:active {
+  opacity: 0.7;
 } 

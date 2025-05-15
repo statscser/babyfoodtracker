@@ -22,6 +22,18 @@ Page({
       progress: 'all',
       like: 'all'
     },
+    progressTextMap: {
+      'none': '未排敏',
+      'ongoing': '正在排敏',
+      'completed': '已排敏'
+    },
+    likeTextMap: {
+      '1': '😫',
+      '2': '😕',
+      '3': '😐',
+      '4': '🙂',
+      '5': '😋'
+    },
     sortOption: 'pinyin', // 'pinyin', 'like-asc', 'like-desc'
     showFilterPopup: false,
     showSortPopup: false
@@ -180,5 +192,13 @@ Page({
     });
 
     this.setData({ filteredFoodList: filtered });
+  },
+  clearFilter(e) {
+    const type = e.currentTarget.dataset.type;
+    this.setData({
+      [`filterOptions.${type}`]: 'all',
+      [`tempFilterOptions.${type}`]: 'all'
+    });
+    this.updateFilteredList();
   }
 }); 

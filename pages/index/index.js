@@ -79,6 +79,10 @@ Page({
   hideSortPopup() {
     this.setData({ showSortPopup: false });
   },
+  stopPropagation() {
+    // 阻止事件冒泡
+    return;
+  },
   onFilterChange(e) {
     const { type, value } = e.currentTarget.dataset;
     this.setData({
@@ -134,17 +138,15 @@ Page({
     // 应用进度筛选
     if (this.data.filterOptions.progress !== 'all') {
       filtered = filtered.filter(f => {
-        const progressList = f.progressList || [];
-        const completedCount = progressList.filter(p => p.status === 'pass').length;
-        const totalCount = progressList.length;
+        const progress = f.progress || 0;
 
         switch (this.data.filterOptions.progress) {
           case 'none': 
-            return completedCount === 0 && totalCount === 0; // 没有任何排敏记录
+            return progress === 0; // 没有任何排敏记录
           case 'ongoing': 
-            return completedCount > 0 && completedCount < totalCount; // 有1-2次记录
+            return progress === 1 || progress === 2; // 有1-2次记录
           case 'completed': 
-            return completedCount === totalCount && totalCount > 0; // 全部完成
+            return progress === 3; // 有3次记录
           default: 
             return true;
         }
@@ -166,10 +168,10 @@ Page({
       switch (this.data.sortOption) {
         case 'pinyin':
           return a.name.localeCompare(b.name, 'zh-CN');
-        case 'like-asc':
-          return (a.like || 0) - (b.like || 0);
+        case 'en':
+          return (a.en || '').localeCompare(b.en || '', 'en');
         case 'like-desc':
-          return (b.like || 0) - (a.like || 0);
+          return (b.likeLevel || 0) - (a.likeLevel || 0);
         default:
           return 0;
       }

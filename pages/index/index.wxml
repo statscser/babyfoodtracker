@@ -90,6 +90,8 @@
             bindtap="onSortChange" data-value="pinyin">按拼音排序</view>
       <view class="sort-option {{sortOption === 'en' ? 'active' : ''}}" 
             bindtap="onSortChange" data-value="en">按英文排序</view>
+      <view class="sort-option {{sortOption === 'progress-desc' ? 'active' : ''}}" 
+            bindtap="onSortChange" data-value="progress-desc">按排敏进度排序</view>
       <view class="sort-option {{sortOption === 'like-desc' ? 'active' : ''}}" 
             bindtap="onSortChange" data-value="like-desc">按喜好排序</view>
     </view>

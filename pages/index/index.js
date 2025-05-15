@@ -170,6 +170,8 @@ Page({
           return a.name.localeCompare(b.name, 'zh-CN');
         case 'en':
           return (a.en || '').localeCompare(b.en || '', 'en');
+        case 'progress-desc':
+          return (b.progress || 0) - (a.progress || 0);
         case 'like-desc':
           return (b.likeLevel || 0) - (a.likeLevel || 0);
         default:

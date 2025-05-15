@@ -52,4 +52,164 @@
   border-radius: 50%;
   border: 4rpx dashed #bfae9e;
   color: transparent;
+}
+
+/* 搜索和筛选栏样式 */
+.search-filter-bar {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 24rpx;
+  gap: 16rpx;
+  margin-bottom: 16rpx;
+  justify-content: center;
+}
+
+.search-box {
+  flex: 0 0 50%;
+  background: #f6f5f3;
+  border-radius: 32rpx;
+  padding: 0 24rpx;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  border: 2rpx solid #e2d6ce;
+}
+
+.search-box input {
+  flex: 1;
+  height: 100%;
+  font-size: 28rpx;
+  color: #6d6d6d;
+}
+
+.clear-btn {
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8c8c8c;
+  font-size: 32rpx;
+  margin-right: 8rpx;
+}
+
+.filter-sort-buttons {
+  display: flex;
+  gap: 12rpx;
+  margin-left: 16rpx;
+}
+
+.filter-btn, .sort-btn {
+  background: #f0edea;
+  border-radius: 32rpx;
+  padding: 12rpx 24rpx;
+  font-size: 28rpx;
+  color: #8c8c8c;
+}
+
+/* 弹窗样式 */
+.popup-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background: #fff;
+  border-radius: 24rpx;
+  width: 80%;
+  max-width: 600rpx;
+  padding: 32rpx;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #6d6d6d;
+  margin-bottom: 24rpx;
+  text-align: center;
+}
+
+.filter-section {
+  margin-bottom: 24rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  color: #8c8c8c;
+  margin-bottom: 16rpx;
+}
+
+.filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.filter-option {
+  background: #f6f5f3;
+  border-radius: 32rpx;
+  padding: 12rpx 24rpx;
+  font-size: 28rpx;
+  color: #8c8c8c;
+}
+
+.filter-option.active {
+  background: #bfae9e;
+  color: #fff;
+}
+
+.sort-options {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.sort-option {
+  background: #f6f5f3;
+  border-radius: 32rpx;
+  padding: 16rpx 24rpx;
+  font-size: 28rpx;
+  color: #8c8c8c;
+  text-align: center;
+}
+
+.sort-option.active {
+  background: #bfae9e;
+  color: #fff;
+}
+
+.popup-footer {
+  display: flex;
+  gap: 24rpx;
+  margin-top: 32rpx;
+  padding-top: 24rpx;
+  border-top: 2rpx solid #f0edea;
+}
+
+.footer-btn {
+  flex: 1;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+}
+
+.footer-btn.reset {
+  background: #f6f5f3;
+  color: #8c8c8c;
+}
+
+.footer-btn.confirm {
+  background: #bfae9e;
+  color: #fff;
 } 

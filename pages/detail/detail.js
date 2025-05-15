@@ -5,9 +5,15 @@ Page({
         { status: '', date: '' },
         { status: '', date: '' },
         { status: '', date: '' }
-      ], like: '😄', remark: ''
+      ], like: null, likeLevel: null, remark: ''
     },
-    likeList: ['😭','😟','😐','🙂','😄'],
+    likeList: [
+      { emoji: '😭', level: 1 },
+      { emoji: '😟', level: 2 },
+      { emoji: '😐', level: 3 },
+      { emoji: '🙂', level: 4 },
+      { emoji: '😄', level: 5 }
+    ],
     currentTrackIndex: null
   },
   onLoad(options) {
@@ -20,6 +26,13 @@ Page({
     if (!food.progressList) {
       let arr = [false, false, false].map((_, i) => ({ status: '', date: '' }));
       food.progressList = arr;
+    }
+    // 兼容老数据：如果只有like没有likeLevel，根据like找到对应的level
+    if (food.like && !food.likeLevel) {
+      const likeItem = this.data.likeList.find(item => item.emoji === food.like);
+      if (likeItem) {
+        food.likeLevel = likeItem.level;
+      }
     }
     this.setData({ food: { ...food, idx: Number(idx) } });
   },
@@ -64,7 +77,11 @@ Page({
     this.setData({ 'food.progressList': progressList });
   },
   onLikeSelect(e) {
-    this.setData({ 'food.like': e.currentTarget.dataset.like });
+    const { emoji, level } = e.currentTarget.dataset;
+    this.setData({ 
+      'food.like': emoji,
+      'food.likeLevel': level
+    });
   },
   onRemarkInput(e) {
     this.setData({ 'food.remark': e.detail.value });
@@ -87,6 +104,7 @@ Page({
         progressList: food.progressList,
         progress,
         like: food.like,
+        likeLevel: food.likeLevel,
         remark: food.remark
       };
     }

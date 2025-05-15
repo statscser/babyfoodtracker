@@ -33,7 +33,7 @@ App({
       { name: '樱桃', en: 'Cherries', emoji: '🍎', category: '水果', progress: 0, like: null, remark: '' },
       { name: '无花果', en: 'Figs', emoji: '🍎', category: '水果', progress: 0, like: null, remark: '' },
       { name: '葡萄', en: 'Grapes', emoji: '🍎', category: '水果', progress: 0, like: null, remark: '' },
-      { name: '哈密瓜', en: 'Honeydew', emoji: '🍎', category: '水果', progress: 0, like: null, remark: '' },
+      { name: '白兰瓜', en: 'Honeydew', emoji: '🍎', category: '水果', progress: 0, like: null, remark: '' },
       { name: '猕猴桃', en: 'Kiwi', emoji: '🍎', category: '水果', progress: 0, like: null, remark: '' },
       { name: '柠檬', en: 'Lemon', emoji: '🍎', category: '水果', progress: 0, like: null, remark: '' },
       { name: '芒果', en: 'Mango', emoji: '🍎', category: '水果', progress: 0, like: null, remark: '' },
@@ -89,8 +89,6 @@ App({
       { name: '山药', en: 'Chinese Yam', emoji: '🥦', category: '蔬菜', progress: 0, like: null, remark: '' },
       { name: '紫薯', en: 'Purple Sweet Potato', emoji: '🥦', category: '蔬菜', progress: 0, like: null, remark: '' },
       { name: '鳕鱼', en: 'Cod', emoji: '🍖', category: '肉类', progress: 0, like: null, remark: '' },
-      { name: '牛油果油', en: 'Avocado Oil', emoji: '🍎', category: '水果', progress: 0, like: null, remark: '' },
-      { name: '橄榄油', en: 'Olive Oil', emoji: '🍎', category: '水果', progress: 0, like: null, remark: '' },
       { name: '面条', en: 'Noodles', emoji: '🌾', category: '谷物', progress: 0, like: null, remark: '' }
     ]
   }

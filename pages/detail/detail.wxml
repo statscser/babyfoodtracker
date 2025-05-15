@@ -21,7 +21,14 @@
   </view>
   <view class="section-title">宝宝喜好</view>
   <view class="like-box">
-    <text class="like-face {{food.like==item?'selected':''}}" wx:for="{{likeList}}" wx:key="face" bindtap="onLikeSelect" data-like="{{item}}">{{item}}</text>
+    <text class="like-face {{food.like===item.emoji?'selected':''}}" 
+          wx:for="{{likeList}}" 
+          wx:key="level" 
+          bindtap="onLikeSelect" 
+          data-emoji="{{item.emoji}}" 
+          data-level="{{item.level}}">
+      {{item.emoji}}
+    </text>
   </view>
   <view class="section-title">备注</view>
   <textarea class="remark-input" placeholder="可记录宝宝对该食物的反应或其他备注..." value="{{food.remark}}" bindinput="onRemarkInput"></textarea>

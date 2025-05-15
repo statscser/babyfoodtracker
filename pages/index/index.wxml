@@ -7,6 +7,20 @@
       </view>
     </view>
   </view>
+  <view class="search-filter-bar">
+    <view class="search-box">
+      <input type="text" placeholder="搜索食物..." bindinput="onSearchInput" value="{{searchText}}" />
+      <view class="clear-btn" wx:if="{{searchText}}" bindtap="clearSearch">✕</view>
+    </view>
+    <view class="filter-sort-buttons">
+      <view class="filter-btn" bindtap="showFilterPopup">
+        <text>筛选</text>
+      </view>
+      <view class="sort-btn" bindtap="showSortPopup">
+        <text>排序</text>
+      </view>
+    </view>
+  </view>
   <view class="food-table">
     <view class="food-row" wx:for="{{filteredFoodList}}" wx:key="name" bindtap="onFoodTap" data-index="{{index}}">
       <view class="food-cell food-name">
@@ -22,6 +36,62 @@
       <view class="food-cell">
         <view class="like-face {{item.like ? '' : 'empty'}}">{{item.like || '😶'}}</view>
       </view>
+    </view>
+  </view>
+</view>
+
+<!-- 筛选弹窗 -->
+<view class="popup-mask" wx:if="{{showFilterPopup}}" bindtap="hideFilterPopup">
+  <view class="popup-content" catchtap="stopPropagation">
+    <view class="popup-title">筛选</view>
+    <view class="filter-section">
+      <view class="section-title">排敏进度</view>
+      <view class="filter-options">
+        <view class="filter-option {{tempFilterOptions.progress === 'all' ? 'active' : ''}}" 
+              bindtap="onFilterChange" data-type="progress" data-value="all">全部</view>
+        <view class="filter-option {{tempFilterOptions.progress === 'none' ? 'active' : ''}}" 
+              bindtap="onFilterChange" data-type="progress" data-value="none">未排敏</view>
+        <view class="filter-option {{tempFilterOptions.progress === 'ongoing' ? 'active' : ''}}" 
+              bindtap="onFilterChange" data-type="progress" data-value="ongoing">正在排敏</view>
+        <view class="filter-option {{tempFilterOptions.progress === 'completed' ? 'active' : ''}}" 
+              bindtap="onFilterChange" data-type="progress" data-value="completed">已排敏</view>
+      </view>
+    </view>
+    <view class="filter-section">
+      <view class="section-title">喜好程度</view>
+      <view class="filter-options">
+        <view class="filter-option {{tempFilterOptions.like === 'all' ? 'active' : ''}}" 
+              bindtap="onFilterChange" data-type="like" data-value="all">全部</view>
+        <view class="filter-option {{tempFilterOptions.like === '1' ? 'active' : ''}}" 
+              bindtap="onFilterChange" data-type="like" data-value="1">😫</view>
+        <view class="filter-option {{tempFilterOptions.like === '2' ? 'active' : ''}}" 
+              bindtap="onFilterChange" data-type="like" data-value="2">😕</view>
+        <view class="filter-option {{tempFilterOptions.like === '3' ? 'active' : ''}}" 
+              bindtap="onFilterChange" data-type="like" data-value="3">😐</view>
+        <view class="filter-option {{tempFilterOptions.like === '4' ? 'active' : ''}}" 
+              bindtap="onFilterChange" data-type="like" data-value="4">🙂</view>
+        <view class="filter-option {{tempFilterOptions.like === '5' ? 'active' : ''}}" 
+              bindtap="onFilterChange" data-type="like" data-value="5">😋</view>
+      </view>
+    </view>
+    <view class="popup-footer">
+      <view class="footer-btn reset" bindtap="resetFilter">重置</view>
+      <view class="footer-btn confirm" bindtap="applyFilter">确定</view>
+    </view>
+  </view>
+</view>
+
+<!-- 排序弹窗 -->
+<view class="popup-mask" wx:if="{{showSortPopup}}" bindtap="hideSortPopup">
+  <view class="popup-content" catchtap="stopPropagation">
+    <view class="popup-title">排序</view>
+    <view class="sort-options">
+      <view class="sort-option {{sortOption === 'pinyin' ? 'active' : ''}}" 
+            bindtap="onSortChange" data-value="pinyin">按拼音排序</view>
+      <view class="sort-option {{sortOption === 'like-asc' ? 'active' : ''}}" 
+            bindtap="onSortChange" data-value="like-asc">按喜好升序</view>
+      <view class="sort-option {{sortOption === 'like-desc' ? 'active' : ''}}" 
+            bindtap="onSortChange" data-value="like-desc">按喜好降序</view>
     </view>
   </view>
 </view> 

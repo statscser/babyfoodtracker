@@ -36,7 +36,26 @@ Page({
     },
     sortOption: 'pinyin', // 'pinyin', 'like-asc', 'like-desc'
     showFilterPopup: false,
-    showSortPopup: false
+    showSortPopup: false,
+    // 常用汉字的完整拼音映射表（基于实际使用的食物名称）
+    pinyinMap: {
+      '芦': 'lu', '笋': 'sun', '甜': 'tian', '菜': 'cai', '彩': 'cai', '椒': 'jiao', '西': 'xi', '兰': 'lan', 
+      '花': 'hua', '南': 'nan', '瓜': 'gua', '胡': 'hu', '萝': 'luo', '卜': 'bo', '芹': 'qin', '玉': 'yu', 
+      '米': 'mi', '黄': 'huang', '茄': 'qie', '子': 'zi', '四': 'si', '季': 'ji', '豆': 'dou', '羽': 'yu', 
+      '衣': 'yi', '甘': 'gan', '蓝': 'lan', '芋': 'yu', '头': 'tou', '蘑': 'mo', '菇': 'gu', '洋': 'yang', 
+      '葱': 'cong', '豌': 'wan', '土': 'tu', '红': 'hong', '薯': 'shu', '葫': 'hu', '苹': 'ping', '果': 'guo', 
+      '牛': 'niu', '油': 'you', '香': 'xiang', '蕉': 'jiao', '黑': 'hei', '莓': 'mei', '哈': 'ha', '密': 'mi', 
+      '樱': 'ying', '桃': 'tao', '无': 'wu', '葡': 'pu', '萄': 'tao', '白': 'bai', '猕': 'mi', '猴': 'hou', 
+      '柠': 'ning', '檬': 'meng', '芒': 'mang', '橙': 'cheng', '梨': 'li', '菠': 'bo', '萝': 'luo', '覆': 'fu', 
+      '盆': 'pen', '草': 'cao', '大': 'da', '麦': 'mai', '面': 'mian', '包': 'bao', '燕': 'yan', '意': 'yi', 
+      '藜': 'li', '饭': 'fan', '饼': 'bing', '切': 'qie', '达': 'da', '奶': 'nai', '酪': 'lao', '马': 'ma', 
+      '苏': 'su', '里': 'li', '拉': 'la', '帕': 'pa', '尔': 'er', '玛': 'ma', '瑞': 'rui', '可': 'ke', 
+      '酸': 'suan', '鸡': 'ji', '蛋': 'dan', '肉': 'rou', '羊': 'yang', '猪': 'zhu', '三': 'san', '文': 'wen', 
+      '鱼': 'yu', '火': 'huo', '鹰': 'ying', '嘴': 'zui', '亚': 'ya', '麻': 'ma', '籽': 'zi', '腐': 'fu', 
+      '九': 'jiu', '层': 'ceng', '塔': 'ta', '桂': 'gui', '蒜': 'suan', '生': 'sheng', '姜': 'jiang', '薄': 'bo', 
+      '荷': 'he', '蔻': 'kou', '粉': 'fen', '欧': 'ou', '迷': 'mi', '迭': 'die', '山': 'shan', '药': 'yao', 
+      '紫': 'zi', '鳕': 'xue', '条': 'tiao'
+    }
   },
   onLoad() {
     const app = getApp();
@@ -122,6 +141,21 @@ Page({
     this.updateFilteredList();
     this.hideSortPopup();
   },
+  // 获取中文字符的完整拼音
+  getPinyin(char) {
+    // 先查映射表
+    const pinyinMap = this.data.pinyinMap;
+    if (pinyinMap && pinyinMap[char]) {
+      return pinyinMap[char];
+    }
+    // 如果不是中文字符，返回原字符的小写
+    const code = char.charCodeAt(0);
+    if (code < 0x4e00 || code > 0x9fff) {
+      return char.toLowerCase();
+    }
+    // 如果是中文字符但不在映射表中，返回 'zzz' 放在最后
+    return 'zzz';
+  },
   updateFilteredList() {
     let filtered = this.data.foodList;
 
@@ -179,9 +213,36 @@ Page({
     filtered.sort((a, b) => {
       switch (this.data.sortOption) {
         case 'pinyin':
-          return a.name.localeCompare(b.name, 'zh-CN');
+          // 使用自定义的拼音排序方法，按完整拼音排序
+          const nameA = a.name || '';
+          const nameB = b.name || '';
+          const len = Math.max(nameA.length, nameB.length);
+          
+          // 逐字符比较完整拼音
+          for (let i = 0; i < len; i++) {
+            const charA = nameA[i] || '';
+            const charB = nameB[i] || '';
+            const pinyinA = this.getPinyin(charA);
+            const pinyinB = this.getPinyin(charB);
+            
+            // 比较完整拼音（字符串比较会自动按字母顺序）
+            if (pinyinA < pinyinB) return -1;
+            if (pinyinA > pinyinB) return 1;
+            
+            // 如果完整拼音相同，继续比较下一个字符
+          }
+          
+          // 如果所有字符的拼音都相同，按原字符串长度排序（短的在前面）
+          if (nameA.length < nameB.length) return -1;
+          if (nameA.length > nameB.length) return 1;
+          
+          return 0;
         case 'en':
-          return (a.en || '').localeCompare(b.en || '', 'en');
+          try {
+            return (a.en || '').localeCompare(b.en || '', 'en');
+          } catch (e) {
+            return (a.en || '') < (b.en || '') ? -1 : ((a.en || '') > (b.en || '') ? 1 : 0);
+          }
         case 'progress-desc':
           return (b.progress || 0) - (a.progress || 0);
         case 'like-desc':

@@ -27,13 +27,56 @@
   line-height: 30rpx;
   text-decoration: underline; 
 }
-.like-box { display: flex; justify-content: center; gap: 24rpx; margin: 20rpx 0 32rpx 0; }
-.like-face { font-size: 48rpx; cursor: pointer; transition: transform 0.15s, color 0.15s; }
-.like-face.selected { transform: scale(1.35); color: #4ecb8f; text-shadow: 0 2rpx 8rpx #bfae9e44; }
+.like-box { 
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+  gap: 24rpx; 
+  margin: 20rpx 0 32rpx 0; 
+  height: 80rpx;
+}
+.like-face { 
+  font-size: 48rpx; 
+  cursor: pointer; 
+  transition: transform 0.15s, color 0.15s; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64rpx;
+  height: 64rpx;
+  line-height: 1;
+  vertical-align: middle;
+  transform-origin: center center; 
+}
+.like-face.selected { 
+  transform: scale(1.35); 
+  color: #4ecb8f; 
+  text-shadow: 0 2rpx 8rpx #bfae9e44; 
+}
 .remark-input { width: 90%; min-height: 80rpx; border-radius: 20rpx; border: 3rpx solid #e2d6ce; padding: 16rpx; font-size: 28rpx; background: #f6f5f3; margin: 0 auto; display: block; }
-.btn-group { display: flex; justify-content: center; gap: 32rpx; margin: 48rpx 0 0 0; }
-.btn { background: #bfae9e; color: #fff; border: none; border-radius: 24rpx; padding: 16rpx 56rpx; font-size: 32rpx; }
+.btn-group { 
+  display: flex; 
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center; 
+  align-items: center;
+  gap: 16rpx; 
+  margin: 48rpx 0 0 0; 
+  padding: 0 20rpx;
+}
+.btn { 
+  background: #bfae9e; 
+  color: #fff; 
+  border: none; 
+  border-radius: 24rpx; 
+  padding: 16rpx 24rpx; 
+  font-size: 28rpx; 
+  white-space: nowrap;
+  flex: 1;
+  max-width: 180rpx;
+}
 .btn.save { background: #8c8c8c; }
+.btn.reset { background: #ff9500; }
 .track-circle {
   width: 48rpx;
   height: 48rpx;

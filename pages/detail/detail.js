@@ -8,17 +8,25 @@ Page({
       ], like: null, likeLevel: null, remark: ''
     },
     likeList: [
-      { emoji: '😭', level: 1 },
-      { emoji: '😟', level: 2 },
+      { emoji: '🥺', level: 1 },
+      { emoji: '😕', level: 2 },
       { emoji: '😐', level: 3 },
-      { emoji: '🙂', level: 4 },
-      { emoji: '😄', level: 5 }
+      { emoji: '😊', level: 4 },
+      { emoji: '🥰', level: 5 }
     ],
     currentTrackIndex: null
   },
   onLoad(options) {
-    const idx = options.index || 0;
+    // 检查登录状态
     const app = getApp();
+    if (!app.globalData.isLoggedIn) {
+      wx.redirectTo({
+        url: '/pages/login/login'
+      });
+      return;
+    }
+
+    const idx = options.index || 0;
     let foodList = app.globalData && app.globalData.foodList ? app.globalData.foodList : [];
     let food = foodList[idx] || {};
     
@@ -195,26 +203,126 @@ Page({
   onBack() {
     wx.navigateBack({ delta: 1 });
   },
-  onSave() {
-    const app = getApp();
-    const idx = this.data.food.idx;
-    const food = this.data.food;
-    
-    // 计算进度（有状态且有日期的次数）
-    const progress = food.progressList.filter(p => p.status && p.date).length;
-    
-    // 更新全局数据
-    if (app.globalData && app.globalData.foodList) {
-      app.globalData.foodList[idx] = {
-        ...app.globalData.foodList[idx],
-        progressList: food.progressList,
-        progress,
-        like: food.like,
-        likeLevel: food.likeLevel,
-        remark: food.remark
-      };
+  async onReset() {
+    const that = this;
+    wx.showModal({
+      title: '确认重置',
+      content: '确定要清除该食物的所有记录吗？包括排敏进度、喜好和备注。此操作不可恢复。',
+      confirmText: '确定',
+      cancelText: '取消',
+      async success(res) {
+        if (res.confirm) {
+          wx.showLoading({
+            title: '重置中...',
+            mask: true
+          });
+
+          try {
+            // 重置所有数据
+            const resetProgressList = [
+              { status: '', date: '' },
+              { status: '', date: '' },
+              { status: '', date: '' }
+            ];
+            
+            const food = that.data.food;
+            that.setData({
+              'food.progressList': resetProgressList,
+              'food.like': null,
+              'food.likeLevel': null,
+              'food.remark': ''
+            });
+
+            // 保存到云数据库
+            const db = require('../../utils/db.js');
+            await db.saveFoodRecord(
+              food._id || food.id,
+              food.name,
+              {
+                progress: 0,
+                progressList: resetProgressList,
+                like: null,
+                likeLevel: null,
+                remark: ''
+              }
+            );
+
+            wx.showToast({
+              title: '已重置',
+              icon: 'success',
+              duration: 1500
+            });
+          } catch (err) {
+            console.error('重置失败:', err);
+            wx.showToast({
+              title: '重置失败，请重试',
+              icon: 'none',
+              duration: 2000
+            });
+          } finally {
+            wx.hideLoading();
+          }
+        }
+      }
+    });
+  },
+  async onSave() {
+    wx.showLoading({
+      title: '保存中...',
+      mask: true
+    });
+
+    try {
+      const app = getApp();
+      const food = this.data.food;
+      
+      // 计算进度（有状态且有日期的次数）
+      const progress = food.progressList.filter(p => p.status && p.date).length;
+      
+      // 保存到云数据库
+      const db = require('../../utils/db.js');
+      await db.saveFoodRecord(
+        food._id || food.id, // 使用云数据库的_id
+        food.name,
+        {
+          progress,
+          progressList: food.progressList,
+          like: food.like,
+          likeLevel: food.likeLevel,
+          remark: food.remark
+        }
+      );
+
+      // 更新本地数据
+      if (app.globalData && app.globalData.foodList) {
+        const idx = this.data.food.idx;
+        app.globalData.foodList[idx] = {
+          ...app.globalData.foodList[idx],
+          progressList: food.progressList,
+          progress,
+          like: food.like,
+          likeLevel: food.likeLevel,
+          remark: food.remark
+        };
+      }
+
+      wx.showToast({
+        title: '保存成功',
+        icon: 'success'
+      });
+
+      setTimeout(() => {
+        wx.reLaunch({ url: '/pages/index/index' });
+      }, 500);
+    } catch (err) {
+      console.error('保存失败:', err);
+      wx.showToast({
+        title: '保存失败，请重试',
+        icon: 'none',
+        duration: 2000
+      });
+    } finally {
+      wx.hideLoading();
     }
-    
-    wx.reLaunch({ url: '/pages/index/index' });
   }
 }); 

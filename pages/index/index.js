@@ -28,11 +28,11 @@ Page({
       'completed': '已排敏'
     },
     likeTextMap: {
-      '1': '😫',
+      '1': '🥺',
       '2': '😕',
       '3': '😐',
-      '4': '🙂',
-      '5': '😋'
+      '4': '😊',
+      '5': '🥰'
     },
     sortOption: 'pinyin', // 'pinyin', 'like-asc', 'like-desc'
     showFilterPopup: false,
@@ -57,20 +57,78 @@ Page({
       '紫': 'zi', '鳕': 'xue', '条': 'tiao'
     }
   },
-  onLoad() {
+  async onLoad() {
+    // 检查登录状态
     const app = getApp();
-    const foodList = app.globalData.foodList || [];
-    this.setData({ 
-      foodList,
-      filteredFoodList: foodList
-    });
+    if (!app.globalData.isLoggedIn) {
+      wx.redirectTo({
+        url: '/pages/login/login'
+      });
+      return;
+    }
+
+    // 加载数据
+    await this.loadData();
   },
-  onShow() {
+
+  async onShow() {
     // 每次显示页面时重新获取数据，确保数据同步
     const app = getApp();
-    const foodList = app.globalData.foodList || [];
-    this.setData({ foodList });
-    this.updateFilteredList();
+    if (!app.globalData.isLoggedIn) {
+      wx.redirectTo({
+        url: '/pages/login/login'
+      });
+      return;
+    }
+
+    await this.loadData();
+  },
+
+  // 从云数据库加载数据
+  async loadData() {
+    wx.showLoading({
+      title: '加载中...',
+      mask: true
+    });
+
+    try {
+      const db = require('../../utils/db.js');
+      
+      // 并行获取食物列表和用户记录
+      const [foodsList, userRecords] = await Promise.all([
+        db.getFoodsList(),
+        db.getUserFoodRecords()
+      ]);
+
+      // 合并数据
+      const foodList = db.mergeFoodsWithRecords(foodsList, userRecords);
+
+      this.setData({ 
+        foodList,
+        filteredFoodList: foodList
+      });
+
+      // 更新全局数据（用于兼容旧代码）
+      const app = getApp();
+      app.globalData.foodList = foodList;
+    } catch (err) {
+      console.error('加载数据失败:', err);
+      wx.showToast({
+        title: '加载失败，请重试',
+        icon: 'none',
+        duration: 2000
+      });
+      
+      // 失败时使用本地数据作为降级方案
+      const app = getApp();
+      const foodList = app.globalData.foodList || [];
+      this.setData({ 
+        foodList,
+        filteredFoodList: foodList
+      });
+    } finally {
+      wx.hideLoading();
+    }
   },
   onTabChange(e) {
     const idx = e.currentTarget.dataset.index;

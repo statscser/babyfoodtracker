@@ -1,6 +1,6 @@
 <view class="container">
   <view class="mask" wx:if="{{currentTrackIndex !== null}}" bindtap="onMaskTap"></view>
-  <view class="food-img">{{food.emoji}}</view>
+  <view class="food-img">{{food.foodEmoji || food.emoji}}</view>
   <view class="food-name">{{food.name}}</view>
   <view class="food-en">{{food.en}}</view>
   <view class="section-title">排敏追踪</view>
@@ -34,7 +34,7 @@
   <textarea class="remark-input" placeholder="可记录宝宝对该食物的反应或其他备注..." value="{{food.remark}}" bindinput="onRemarkInput"></textarea>
   <view class="btn-group">
     <button class="btn" bindtap="onBack">取消</button>
-    <view style="width:32rpx;display:inline-block;"></view>
+    <button class="btn reset" bindtap="onReset">重置</button>
     <button class="btn save" bindtap="onSave">保存</button>
   </view>
 </view> 

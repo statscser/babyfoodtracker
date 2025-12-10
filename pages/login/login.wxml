@@ -1,0 +1,13 @@
+<view class="container">
+  <view class="login-box">
+    <view class="logo">🍼</view>
+    <view class="title">宝宝食物初体验</view>
+    <view class="desc">记录宝宝的排敏进度和食物喜好</view>
+    <button class="login-btn" bindtap="onLogin" loading="{{loading}}" disabled="{{loading}}">
+      {{loading ? '登录中...' : '微信授权登录'}}
+    </button>
+    <view class="tip">登录后，您的数据将安全保存在云端</view>
+  </view>
+</view>
+
+

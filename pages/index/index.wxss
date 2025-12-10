@@ -6,12 +6,14 @@
 .food-table { width: 98vw; max-width: 700rpx; margin: 0 auto; padding-bottom: 60rpx; margin-bottom: 60rpx; }
 .food-row { background: #fff; border-radius: 28rpx; box-shadow: 0 8rpx 32rpx #e2d6ce33; min-height: 80rpx; display: flex; align-items: center; margin-bottom: 10rpx; transition: box-shadow 0.2s; padding: 8rpx 0; }
 .food-row:active { box-shadow: 0 12rpx 48rpx #e2d6ce55; }
-.food-cell { flex: 1 1 0; padding: 0 6rpx; font-size: 28rpx; color: #6d6d6d; display: flex; align-items: center; justify-content: center; }
-.food-name { flex-direction: column; align-items: flex-start; justify-content: center; min-width: 0; max-width: 100%; font-weight: 500; padding-left: 16rpx; }
-.food-name text { display: block; white-space: nowrap; }
+.food-cell { padding: 0 8rpx; font-size: 28rpx; color: #6d6d6d; display: flex; align-items: center; justify-content: center; }
+.food-name { flex: 2 1 0; flex-direction: row; align-items: center; justify-content: flex-start; min-width: 0; max-width: 100%; font-weight: 500; padding-left: 16rpx; gap: 8rpx; }
+.food-emoji { font-size: 36rpx; display: inline-block; flex-shrink: 0; line-height: 1; }
+.food-name-text { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
+.food-name-text text:first-child { white-space: nowrap; }
 .food-en { color: #b0a99f; font-size: 24rpx; margin-left: 0; margin-top: 2rpx; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.food-cat { font-size: 48rpx; justify-content: center; }
-.progress { display: flex; gap: 8rpx; justify-content: center; }
+.progress { flex: 1.2 1 0; display: flex; gap: 8rpx; justify-content: center; }
+.like-cell { flex: 1 1 0; }
 .dot { 
   width: 32rpx; 
   height: 32rpx; 

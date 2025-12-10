@@ -34,16 +34,18 @@
   <view class="food-table">
     <view class="food-row" wx:for="{{filteredFoodList}}" wx:key="name" bindtap="onFoodTap" data-index="{{index}}">
       <view class="food-cell food-name">
-        <text>{{item.name}}</text>
-        <text class="food-en">{{item.en}}</text>
+        <text class="food-emoji">{{item.foodEmoji || item.emoji}}</text>
+        <view class="food-name-text">
+          <text>{{item.name}}</text>
+          <text class="food-en">{{item.en}}</text>
+        </view>
       </view>
-      <view class="food-cell food-cat">{{item.emoji}}</view>
       <view class="food-cell progress">
         <view class="dot {{item.progressList[0].status ? 'status-'+item.progressList[0].status : ''}}" />
         <view class="dot {{item.progressList[1].status ? 'status-'+item.progressList[1].status : ''}}" />
         <view class="dot {{item.progressList[2].status ? 'status-'+item.progressList[2].status : ''}}" />
       </view>
-      <view class="food-cell">
+      <view class="food-cell like-cell">
         <view class="like-face {{item.like ? '' : 'empty'}}">{{item.like || '😶'}}</view>
       </view>
     </view>
@@ -73,15 +75,15 @@
         <view class="filter-option {{tempFilterOptions.like === 'all' ? 'active' : ''}}" 
               bindtap="onFilterChange" data-type="like" data-value="all">全部</view>
         <view class="filter-option {{tempFilterOptions.like === '1' ? 'active' : ''}}" 
-              bindtap="onFilterChange" data-type="like" data-value="1">😫</view>
+              bindtap="onFilterChange" data-type="like" data-value="1">🥺</view>
         <view class="filter-option {{tempFilterOptions.like === '2' ? 'active' : ''}}" 
               bindtap="onFilterChange" data-type="like" data-value="2">😕</view>
         <view class="filter-option {{tempFilterOptions.like === '3' ? 'active' : ''}}" 
               bindtap="onFilterChange" data-type="like" data-value="3">😐</view>
         <view class="filter-option {{tempFilterOptions.like === '4' ? 'active' : ''}}" 
-              bindtap="onFilterChange" data-type="like" data-value="4">🙂</view>
+              bindtap="onFilterChange" data-type="like" data-value="4">😊</view>
         <view class="filter-option {{tempFilterOptions.like === '5' ? 'active' : ''}}" 
-              bindtap="onFilterChange" data-type="like" data-value="5">😋</view>
+              bindtap="onFilterChange" data-type="like" data-value="5">🥰</view>
       </view>
     </view>
     <view class="popup-footer">
